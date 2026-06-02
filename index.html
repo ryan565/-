@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rose Angel Art — Hand-Painted Murals, Perth WA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Fraunces:ital,wght@0,300;0,400;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --rose: #E8456A;
+    --coral: #F4724A;
+    --gold: #F5C842;
+    --teal: #2ABFAA;
+    --deep-teal: #1A8A7A;
+    --indigo: #3D4FBF;
+    --lilac: #C97ED4;
+    --cream: #FDF6EC;
+    --ink: #1C1410;
+    --warm-white: #FFFBF5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--ink);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--rose);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, background 0.3s ease, width 0.2s ease, height 0.2s ease;
+    mix-blend-mode: multiply;
+  }
+  .cursor.big {
+    width: 48px;
+    height: 48px;
+    background: var(--gold);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,251,245,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1.5px solid rgba(232,69,106,0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--rose);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--teal); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 2px;
+    background: var(--rose);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a:hover { color: var(--rose); }
+
+  .nav-cta {
+    background: var(--rose);
+    color: #fff !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 100px;
+    font-size: 0.85rem !important;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--coral) !important; transform: scale(1.04) !important; }
+  .nav-cta::after { display: none !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding: 7rem 3rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(245,200,66,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(42,191,170,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 35% 40% at 90% 10%, rgba(232,69,106,0.12) 0%, transparent 50%);
+    z-index: 0;
+  }
+
+  /* Floating paint blobs */
+  .blob {
+    position: absolute;
+    border-radius: 60% 40% 70% 30% / 50% 60% 40% 50%;
+    opacity: 0.12;
+    animation: blobDrift 12s ease-in-out infinite alternate;
+    z-index: 0;
+  }
+  .blob-1 { width: 320px; height: 320px; background: var(--rose); top: 5%; right: 5%; animation-duration: 14s; }
+  .blob-2 { width: 200px; height: 200px; background: var(--teal); bottom: 10%; left: 2%; animation-duration: 10s; animation-delay: -3s; }
+  .blob-3 { width: 160px; height: 160px; background: var(--gold); top: 55%; right: 30%; animation-duration: 9s; animation-delay: -6s; }
+
+  @keyframes blobDrift {
+    0% { transform: translate(0,0) rotate(0deg) scale(1); }
+    100% { transform: translate(20px,30px) rotate(15deg) scale(1.1); }
+  }
+
+  .hero-text { position: relative; z-index: 1; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before { content: '🎨'; font-size: 0.9rem; }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 5.5vw, 5.5rem);
+    line-height: 1.0;
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease 0.1s both;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--rose);
+    display: block;
+  }
+
+  h1 .underline-word {
+    position: relative;
+    white-space: nowrap;
+  }
+  h1 .underline-word::after {
+    content: '';
+    position: absolute;
+    bottom: 4px; left: 0; right: 0;
+    height: 6px;
+    background: var(--gold);
+    z-index: -1;
+    border-radius: 3px;
+  }
+
+  .hero-sub {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: #4A3830;
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    animation: fadeUp 0.6s ease 0.3s both;
+  }
+
+  .btn-primary {
+    background: var(--rose);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s;
+    border: none;
+    cursor: none;
+  }
+  .btn-primary:hover { transform: scale(1.04) translateY(-2px); background: var(--coral); }
+
+  .btn-outline {
+    color: var(--ink);
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    border: 2px solid var(--ink);
+    transition: transform 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+    cursor: none;
+  }
+  .btn-outline:hover { background: var(--ink); color: #fff; transform: scale(1.04) translateY(-2px); }
+
+  /* Hero visual — SVG mural illustration */
+  .hero-art {
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .hero-art svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 20px 60px rgba(232,69,106,0.2));
+  }
+
+  /* Paint stroke decor */
+  .paint-stroke {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* MARQUEE */
+  .marquee-strip {
+    background: var(--ink);
+    color: var(--gold);
+    padding: 1rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    border-top: 3px solid var(--rose);
+    border-bottom: 3px solid var(--rose);
+  }
+  .marquee-inner {
+    display: inline-flex;
+    gap: 0;
+    animation: marquee 18s linear infinite;
+  }
+  .marquee-inner span {
+    padding: 0 2.5rem;
+  }
+  .marquee-inner .dot {
+    color: var(--rose);
+    padding: 0;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ABOUT */
+  .section {
+    padding: 7rem 3rem;
+    position: relative;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 2px;
+    background: var(--rose);
+    flex-shrink: 0;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+    line-height: 1.15;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .about-text p {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #3A2E28;
+    margin-bottom: 1.2rem;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .stat-card {
+    background: var(--cream);
+    border: 1.5px solid rgba(232,69,106,0.2);
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .stat-card:hover { transform: translateY(-4px); border-color: var(--rose); }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--rose);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-size: 0.85rem;
+    color: #6B5550;
+    font-weight: 500;
+  }
+
+  /* About illustration */
+  .about-visual {
+    position: relative;
+  }
+
+  .about-img-wrap {
+    position: relative;
+    border-radius: 30px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, var(--teal) 0%, var(--indigo) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-img-wrap svg {
+    width: 85%;
+    height: 85%;
+  }
+
+  .about-img-wrap::before {
+    content: '';
+    position: absolute;
+    top: -15px; right: -15px;
+    width: 100%; height: 100%;
+    border: 3px solid var(--gold);
+    border-radius: 30px;
+    z-index: -1;
+  }
+
+  .floaty-badge {
+    position: absolute;
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.7rem 1.3rem;
+    border-radius: 100px;
+    white-space: nowrap;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    animation: floatBadge 4s ease-in-out infinite;
+  }
+  .floaty-badge-1 { bottom: -1rem; left: -2rem; animation-delay: 0s; }
+  .floaty-badge-2 { top: 2rem; right: -2rem; animation-delay: -2s; background: var(--rose); color: #fff; }
+
+  @keyframes floatBadge {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-8px) rotate(2deg); }
+  }
+
+  /* SERVICES */
+  .services-section {
+    background: var(--ink);
+    color: #fff;
+    padding: 7rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .services-section .section-label { color: var(--gold); }
+  .services-section .section-label::before { background: var(--gold); }
+  .services-section h2 { color: #fff; }
+
+  .services-bg-blobs {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+  .s-blob {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.06;
+  }
+  .s-blob-1 { width: 500px; height: 500px; background: var(--rose); top: -100px; right: -100px; }
+  .s-blob-2 { width: 350px; height: 350px; background: var(--teal); bottom: -80px; left: 10%; }
+
+  .services-content { position: relative; z-index: 1; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .service-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 2rem;
+    transition: transform 0.3s, background 0.3s, border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card:hover {
+    transform: translateY(-6px);
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.25);
+  }
+
+  .service-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.8rem;
+  }
+
+  .service-card p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .service-card-accent {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    opacity: 0.12;
+    transform: translate(30%, 30%);
+  }
+
+  /* GALLERY */
+  .gallery-section {
+    padding: 7rem 3rem;
+    background: var(--cream);
+  }
+
+  .gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 1rem;
+  }
+
+  .gallery-item {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 1;
+    cursor: none;
+  }
+  .gallery-item:first-child {
+    grid-row: span 2;
+    aspect-ratio: unset;
+  }
+  .gallery-item:nth-child(5) {
+    grid-column: span 2;
+    aspect-ratio: 2/1;
+  }
+
+  .gallery-item svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .gallery-item:hover svg { transform: scale(1.04); }
+
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(28,20,16,0.7) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+  }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+  .gallery-overlay-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* PROCESS */
+  .process-section { padding: 7rem 3rem; }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 3.5rem;
+    position: relative;
+  }
+
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 40px; left: 10%;
+    width: 80%;
+    height: 2px;
+    background: linear-gradient(to right, var(--rose), var(--gold), var(--teal), var(--indigo));
+    z-index: 0;
+  }
+
+  .process-step {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .step-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 1.5rem;
+    position: relative;
+    border: 3px solid var(--warm-white);
+  }
+
+  .process-step h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+  }
+
+  .process-step p {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #6B5550;
+  }
+
+  /* TESTIMONIALS */
+  .testimonials-section {
+    padding: 7rem 3rem;
+    background: var(--warm-white);
+    overflow: hidden;
+  }
+
+  .testimonials-track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .testimonial-card {
+    background: #fff;
+    border: 1.5px solid rgba(232,69,106,0.12);
+    border-radius: 24px;
+    padding: 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+  .testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(232,69,106,0.12); }
+
+  .testimonial-card::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 6rem;
+    line-height: 1;
+    color: var(--rose);
+    opacity: 0.15;
+    position: absolute;
+    top: 1rem; left: 1.5rem;
+    pointer-events: none;
+  }
+
+  .testimonial-text {
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #3A2E28;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .author-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    flex-shrink: 0;
+    color: #fff;
+  }
+
+  .author-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+  .author-business {
+    font-size: 0.78rem;
+    color: #8A7570;
+  }
+
+  .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 0.8rem; }
+
+  /* CONTACT */
+  .contact-section {
+    padding: 7rem 3rem;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 60% at 0% 100%, rgba(42,191,170,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 100% 0%, rgba(232,69,106,0.1) 0%, transparent 60%);
+    z-index: 0;
+  }
+
+  .contact-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-left h2 { color: #fff; }
+  .contact-left .section-label { color: var(--teal); }
+  .contact-left .section-label::before { background: var(--teal); }
+
+  .contact-left p {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 2rem;
+  }
+
+  .contact-info-items { display: flex; flex-direction: column; gap: 1rem; }
+
+  .contact-info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.95rem;
+  }
+
+  .contact-info-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  /* Contact form */
+  .contact-form {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 28px;
+    padding: 2.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 0.5rem;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 0.85rem 1.1rem;
+    font-size: 0.95rem;
+    font-family: 'DM Sans', sans-serif;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: none;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--rose);
+    background: rgba(255,255,255,0.12);
+  }
+
+  .form-group select option { background: #2a2020; color: #fff; }
+
+  .form-group textarea { resize: vertical; min-height: 110px; }
+
+  .form-submit {
+    width: 100%;
+    background: var(--rose);
+    color: #fff;
+    border: none;
+    border-radius: 100px;
+    padding: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: none;
+    transition: background 0.2s, transform 0.2s;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--coral); transform: scale(1.02); }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    color: var(--teal);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #120D0A;
+    padding: 2.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--rose);
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--teal); }
+
+  .footer-copy {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .social-links { display: flex; gap: 1rem; }
+  .social-link {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+  .social-link:hover { border-color: var(--rose); color: var(--rose); background: rgba(232,69,106,0.1); }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, .about-grid, .contact-content { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    .services-grid, .testimonials-track { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .process-steps::before { display: none; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:first-child { grid-row: span 1; aspect-ratio: 1; }
+    .gallery-item:nth-child(5) { grid-column: span 1; aspect-ratio: 1; }
+    .section, .services-section, .gallery-section, .process-section,
+    .testimonials-section, .contact-section { padding: 4rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    body { cursor: auto; }
+    .cursor { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Rose<span>Angel</span>.art</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="hero-text">
+    <div class="hero-tag">Perth, Western Australia</div>
+    <h1>
+      Walls that<br>
+      <em>tell your</em>
+      <span class="underline-word">story</span>
+    </h1>
+    <p class="hero-sub">Hand-painted murals that transform your business space into something unforgettable. Bold colours, expressive brushwork, and soul in every stroke.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Start Your Mural</a>
+      <a href="#gallery" class="btn-outline">See My Work</a>
+    </div>
+  </div>
+
+  <div class="hero-art">
+    <!-- Illustrative mural SVG inspired by vibrant Colombian-Australian botanical style -->
+    <svg viewBox="0 0 520 560" xmlns="http://www.w3.org/2000/svg">
+      <!-- Background wall -->
+      <rect width="520" height="560" fill="#FDF0E4" rx="24"/>
+      <!-- Abstract colour fields -->
+      <ellipse cx="380" cy="120" rx="180" ry="140" fill="#F5C842" opacity="0.25"/>
+      <ellipse cx="140" cy="440" rx="160" ry="130" fill="#2ABFAA" opacity="0.2"/>
+      <ellipse cx="460" cy="420" rx="100" ry="100" fill="#E8456A" opacity="0.18"/>
+      <!-- Large tropical leaf left -->
+      <path d="M60,500 Q0,280 120,80 Q160,180 140,360 Q110,400 60,500Z" fill="#2ABFAA" opacity="0.85"/>
+      <path d="M120,80 Q160,180 140,360" stroke="#1A8A7A" stroke-width="3" fill="none"/>
+      <!-- Leaf veins -->
+      <line x1="120" y1="80" x2="80" y2="200" stroke="#1A8A7A" stroke-width="1.5" opacity="0.6"/>
+      <line x1="130" y1="140" x2="75" y2="280" stroke="#1A8A7A" stroke-width="1.5" opacity="0.6"/>
+      <line x1="135" y1="220" x2="72" y2="340" stroke="#1A8A7A" stroke-width="1.5" opacity="0.6"/>
+
+      <!-- Big flower centre-right -->
+      <circle cx="340" cy="230" r="55" fill="#F4724A"/>
+      <circle cx="340" cy="230" r="38" fill="#F5C842"/>
+      <circle cx="340" cy="230" r="22" fill="#E8456A"/>
+      <!-- Petals -->
+      <ellipse cx="340" cy="155" rx="20" ry="40" fill="#F4724A" opacity="0.9"/>
+      <ellipse cx="340" cy="305" rx="20" ry="40" fill="#F4724A" opacity="0.9"/>
+      <ellipse cx="265" cy="230" rx="40" ry="20" fill="#F4724A" opacity="0.9"/>
+      <ellipse cx="415" cy="230" rx="40" ry="20" fill="#F4724A" opacity="0.9"/>
+      <ellipse cx="290" cy="180" rx="25" ry="35" fill="#E8456A" opacity="0.75" transform="rotate(-45 290 180)"/>
+      <ellipse cx="390" cy="180" rx="25" ry="35" fill="#E8456A" opacity="0.75" transform="rotate(45 390 180)"/>
+      <ellipse cx="290" cy="280" rx="25" ry="35" fill="#E8456A" opacity="0.75" transform="rotate(45 290 280)"/>
+      <ellipse cx="390" cy="280" rx="25" ry="35" fill="#E8456A" opacity="0.75" transform="rotate(-45 390 280)"/>
+
+      <!-- Stem for flower -->
+      <path d="M340,285 Q330,360 310,420" stroke="#3D4FBF" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <!-- Side leaf on stem -->
+      <path d="M325,350 Q260,330 240,370 Q280,400 325,375Z" fill="#2ABFAA" opacity="0.9"/>
+      <line x1="325" y1="362" x2="255" y2="355" stroke="#1A8A7A" stroke-width="1.5" opacity="0.7"/>
+
+      <!-- Small flower bottom-right -->
+      <circle cx="430" cy="400" r="30" fill="#C97ED4"/>
+      <circle cx="430" cy="400" r="18" fill="#F5C842"/>
+      <ellipse cx="430" cy="360" rx="12" ry="24" fill="#C97ED4" opacity="0.85"/>
+      <ellipse cx="430" cy="440" rx="12" ry="24" fill="#C97ED4" opacity="0.85"/>
+      <ellipse cx="390" cy="400" rx="24" ry="12" fill="#C97ED4" opacity="0.85"/>
+      <ellipse cx="470" cy="400" rx="24" ry="12" fill="#C97ED4" opacity="0.85"/>
+
+      <!-- Top right leaf cluster -->
+      <path d="M440,20 Q500,60 490,130 Q460,90 430,60Z" fill="#F4724A" opacity="0.7"/>
+      <path d="M470,10 Q540,70 510,150 Q480,100 460,60Z" fill="#E8456A" opacity="0.55"/>
+
+      <!-- Dot cluster / pollen scatter -->
+      <circle cx="200" cy="160" r="7" fill="#F5C842"/>
+      <circle cx="220" cy="140" r="5" fill="#F4724A"/>
+      <circle cx="185" cy="140" r="4" fill="#2ABFAA"/>
+      <circle cx="240" cy="165" r="6" fill="#C97ED4"/>
+      <circle cx="205" cy="185" r="4" fill="#F4724A"/>
+      <circle cx="175" cy="165" r="5" fill="#F5C842"/>
+
+      <!-- Another dot cluster bottom left -->
+      <circle cx="100" cy="490" r="8" fill="#F5C842" opacity="0.9"/>
+      <circle cx="120" cy="510" r="5" fill="#E8456A" opacity="0.9"/>
+      <circle cx="80" cy="510" r="4" fill="#3D4FBF" opacity="0.9"/>
+
+      <!-- Ground plants -->
+      <path d="M160,560 Q175,480 200,440 Q215,480 210,560Z" fill="#3D4FBF" opacity="0.7"/>
+      <path d="M200,560 Q205,490 230,450 Q245,500 240,560Z" fill="#2ABFAA" opacity="0.65"/>
+      <path d="M250,560 Q260,500 275,465 Q285,510 275,560Z" fill="#F4724A" opacity="0.6"/>
+      <path d="M430,560 Q440,500 450,475 Q460,510 455,560Z" fill="#C97ED4" opacity="0.7"/>
+      <path d="M455,560 Q465,505 480,470 Q490,515 483,560Z" fill="#F5C842" opacity="0.7"/>
+
+      <!-- Small bird silhouette top -->
+      <path d="M260,60 Q270,50 285,58 Q275,62 265,68Z" fill="#E8456A" opacity="0.8"/>
+      <path d="M285,58 Q300,45 310,55 Q298,65 285,58Z" fill="#3D4FBF" opacity="0.8"/>
+
+      <!-- Brushstroke texture lines -->
+      <line x1="10" y1="30" x2="55" y2="25" stroke="#E8456A" stroke-width="3.5" stroke-linecap="round" opacity="0.4"/>
+      <line x1="460" y1="550" x2="510" y2="545" stroke="#2ABFAA" stroke-width="3.5" stroke-linecap="round" opacity="0.4"/>
+    </svg>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner" aria-hidden="true">
+    <span>Cafés</span><span class="dot">✦</span>
+    <span>Offices</span><span class="dot">✦</span>
+    <span>Retail Stores</span><span class="dot">✦</span>
+    <span>Restaurants</span><span class="dot">✦</span>
+    <span>Schools</span><span class="dot">✦</span>
+    <span>Gyms &amp; Studios</span><span class="dot">✦</span>
+    <span>Hotels</span><span class="dot">✦</span>
+    <span>Clinics</span><span class="dot">✦</span>
+    <span>Co-working Spaces</span><span class="dot">✦</span>
+    <span>Perth CBD</span><span class="dot">✦</span>
+    <span>Fremantle</span><span class="dot">✦</span>
+    <span>Northbridge</span><span class="dot">✦</span>
+    <!-- Duplicate for seamless loop -->
+    <span>Cafés</span><span class="dot">✦</span>
+    <span>Offices</span><span class="dot">✦</span>
+    <span>Retail Stores</span><span class="dot">✦</span>
+    <span>Restaurants</span><span class="dot">✦</span>
+    <span>Schools</span><span class="dot">✦</span>
+    <span>Gyms &amp; Studios</span><span class="dot">✦</span>
+    <span>Hotels</span><span class="dot">✦</span>
+    <span>Clinics</span><span class="dot">✦</span>
+    <span>Co-working Spaces</span><span class="dot">✦</span>
+    <span>Perth CBD</span><span class="dot">✦</span>
+    <span>Fremantle</span><span class="dot">✦</span>
+    <span>Northbridge</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-img-wrap">
+        <!-- Artist at work illustration -->
+        <svg viewBox="0 0 320 400" xmlns="http://www.w3.org/2000/svg">
+          <!-- Wall being painted -->
+          <rect x="20" y="60" width="280" height="280" fill="rgba(255,255,255,0.08)" rx="12"/>
+          <!-- Mural on wall in progress -->
+          <ellipse cx="120" cy="140" rx="60" ry="50" fill="#F5C842" opacity="0.7"/>
+          <circle cx="120" cy="140" r="30" fill="#E8456A" opacity="0.8"/>
+          <path d="M50,260 Q80,200 120,220 Q150,240 180,200 Q220,160 270,180" stroke="#2ABFAA" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.85"/>
+          <path d="M50,300 Q90,270 140,280 Q190,290 270,260" stroke="#C97ED4" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.7"/>
+          <!-- Leaf shapes on wall -->
+          <path d="M200,100 Q240,80 260,130 Q230,150 200,100Z" fill="#2ABFAA" opacity="0.7"/>
+          <path d="M220,90 Q255,65 275,105 Q250,125 220,90Z" fill="#F4724A" opacity="0.5"/>
+
+          <!-- Artist figure (simplified) -->
+          <!-- Head -->
+          <circle cx="200" cy="310" r="22" fill="#F5C4A0"/>
+          <!-- Hair -->
+          <ellipse cx="200" cy="296" rx="22" ry="14" fill="#3A1F10"/>
+          <path d="M178,296 Q185,330 188,350" stroke="#3A1F10" stroke-width="4" fill="none"/>
+          <!-- Body -->
+          <rect x="178" y="330" width="44" height="55" fill="#E8456A" rx="8"/>
+          <!-- Arm holding brush -->
+          <line x1="222" y1="345" x2="260" y2="305" stroke="#F5C4A0" stroke-width="8" stroke-linecap="round"/>
+          <!-- Brush -->
+          <line x1="260" y1="305" x2="272" y2="293" stroke="#8B5E3C" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="272" cy="290" rx="5" ry="9" fill="#F5C842" transform="rotate(-40 272 290)"/>
+          <!-- Other arm -->
+          <line x1="178" y1="345" x2="160" y2="370" stroke="#F5C4A0" stroke-width="8" stroke-linecap="round"/>
+          <!-- Palette in hand -->
+          <ellipse cx="153" cy="375" rx="15" ry="12" fill="#8B5E3C"/>
+          <circle cx="148" cy="371" r="5" fill="#E8456A"/>
+          <circle cx="157" cy="369" r="4" fill="#F5C842"/>
+          <circle cx="155" cy="379" r="4" fill="#2ABFAA"/>
+          <!-- Legs -->
+          <rect x="182" y="382" width="16" height="30" fill="#3D4FBF" rx="5"/>
+          <rect x="202" y="382" width="16" height="30" fill="#3D4FBF" rx="5"/>
+          <!-- Feet -->
+          <ellipse cx="190" cy="414" rx="10" ry="7" fill="#3A1F10"/>
+          <ellipse cx="210" cy="414" rx="10" ry="7" fill="#3A1F10"/>
+
+          <!-- Paint splash on ground -->
+          <ellipse cx="260" cy="420" rx="30" ry="12" fill="#F4724A" opacity="0.4"/>
+          <circle cx="285" cy="415" r="6" fill="#F5C842" opacity="0.5"/>
+          <circle cx="245" cy="425" r="5" fill="#2ABFAA" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="floaty-badge floaty-badge-1">🎨 Hand-painted, always</div>
+      <div class="floaty-badge floaty-badge-2">Perth & surrounds</div>
+    </div>
+
+    <div class="about-text">
+      <div class="section-label">About Rose Angel</div>
+      <h2>Art that breathes life into your space</h2>
+      <p>Hi! I'm Dani — the artist behind Rose Angel Art. Originally from Colombia 🇨🇴 and now proudly calling Perth, Western Australia home, I bring the vibrant colours and joyful energy of my roots to every wall I paint.</p>
+      <p>I believe businesses deserve more than bare walls. A hand-painted mural tells your customers who you are before a single word is spoken. My style blends bold tropical botanicals, expressive brushwork, and a warmth that only comes from art made entirely by hand.</p>
+      <p>Whether you're after a statement feature wall in your café, a branded mural for your office, or something totally bespoke — let's make it beautiful together.</p>
+
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Murals completed across Perth</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Hand-painted, no prints</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">5★</div>
+          <div class="stat-label">Rated by Perth businesses</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Colours, styles & possibilities</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-bg-blobs">
+    <div class="s-blob s-blob-1"></div>
+    <div class="s-blob s-blob-2"></div>
+  </div>
+  <div class="services-content">
+    <div class="section-label">What I offer</div>
+    <h2>Every wall is a canvas</h2>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-icon" style="background:rgba(232,69,106,0.2);">🌿</div>
+        <h3>Botanical & Tropical Murals</h3>
+        <p>Lush, expressive botanical artworks inspired by my Colombian heritage. Palms, blooms, and organic forms that bring the outside in.</p>
+        <div class="service-card-accent" style="background:var(--rose);"></div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon" style="background:rgba(245,200,66,0.2);">🏢</div>
+        <h3>Corporate & Branded Walls</h3>
+        <p>Reflect your brand identity through custom art. I work with your colours, logo, and values to create something uniquely yours.</p>
+        <div class="service-card-accent" style="background:var(--gold);"></div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon" style="background:rgba(42,191,170,0.2);">☕</div>
+        <h3>Café & Restaurant Murals</h3>
+        <p>Turn your venue into a destination. Instagrammable, welcoming art that makes guests linger longer and come back for more.</p>
+        <div class="service-card-accent" style="background:var(--teal);"></div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon" style="background:rgba(201,126,212,0.2);">✏️</div>
+        <h3>Custom Illustration & Design</h3>
+        <p>From concept sketches to final mural — I handle the full design process. You'll see and approve every detail before a drop of paint touches the wall.</p>
+        <div class="service-card-accent" style="background:var(--lilac);"></div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon" style="background:rgba(61,79,191,0.2);">🏫</div>
+        <h3>Schools & Community Spaces</h3>
+        <p>Bright, inspiring murals for educational environments, playgrounds, and community centres. Art that sparks imagination in young minds.</p>
+        <div class="service-card-accent" style="background:var(--indigo);"></div>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon" style="background:rgba(244,114,74,0.2);">🔄</div>
+        <h3>Touch-Ups & Refreshes</h3>
+        <p>Existing mural looking tired? I offer touch-up services and complete refreshes to bring faded art back to its full, brilliant glory.</p>
+        <div class="service-card-accent" style="background:var(--coral);"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="gallery-header">
+    <div>
+      <div class="section-label">Portfolio</div>
+      <h2>Recent murals</h2>
+    </div>
+    <a href="https://www.instagram.com/roseangel.art/" target="_blank" class="btn-outline" style="font-size:0.88rem; padding:0.7rem 1.5rem;">See more on Instagram ↗</a>
+  </div>
+
+  <div class="gallery-grid">
+    <!-- Gallery item 1 — tall -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="300" height="600" fill="#1A3A2A"/>
+        <ellipse cx="150" cy="300" rx="180" ry="160" fill="#2ABFAA" opacity="0.25"/>
+        <!-- Large botanical scene -->
+        <path d="M0,600 Q50,400 80,200 Q110,350 100,500 Q60,540 0,600Z" fill="#3D7A5A"/>
+        <path d="M80,200 Q110,300 100,450" stroke="#2ABFAA" stroke-width="4" fill="none"/>
+        <path d="M40,380 Q20,350 0,360" stroke="#2ABFAA" stroke-width="2" fill="none"/>
+        <path d="M70,300 Q50,275 30,280" stroke="#2ABFAA" stroke-width="2" fill="none"/>
+        <!-- Flowers -->
+        <circle cx="200" cy="150" r="45" fill="#F4724A"/>
+        <circle cx="200" cy="150" r="28" fill="#F5C842"/>
+        <circle cx="200" cy="150" r="15" fill="#E8456A"/>
+        <ellipse cx="200" cy="90" rx="16" ry="34" fill="#F4724A"/>
+        <ellipse cx="200" cy="210" rx="16" ry="34" fill="#F4724A"/>
+        <ellipse cx="140" cy="150" rx="34" ry="16" fill="#F4724A"/>
+        <ellipse cx="260" cy="150" rx="34" ry="16" fill="#F4724A"/>
+        <!-- Stem -->
+        <path d="M200,195 Q190,280 170,350" stroke="#2ABFAA" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <!-- Second flower -->
+        <circle cx="230" cy="420" r="30" fill="#C97ED4"/>
+        <circle cx="230" cy="420" r="16" fill="#F5C842"/>
+        <ellipse cx="230" cy="382" rx="11" ry="22" fill="#C97ED4"/>
+        <ellipse cx="230" cy="458" rx="11" ry="22" fill="#C97ED4"/>
+        <ellipse cx="192" cy="420" rx="22" ry="11" fill="#C97ED4"/>
+        <ellipse cx="268" cy="420" rx="22" ry="11" fill="#C97ED4"/>
+        <!-- Birds -->
+        <path d="M100,80 Q110,70 122,78 Q113,83 103,87Z" fill="#F5C842"/>
+        <path d="M120,70 Q133,58 143,68 Q132,75 120,70Z" fill="#F5C842"/>
+        <!-- Dots -->
+        <circle cx="160" cy="250" r="6" fill="#F5C842"/>
+        <circle cx="250" cy="300" r="5" fill="#2ABFAA"/>
+        <circle cx="130" cy="320" r="4" fill="#F4724A"/>
+        <!-- Ground leaves -->
+        <path d="M0,560 Q30,520 60,530 Q50,560 0,560Z" fill="#F4724A" opacity="0.7"/>
+        <path d="M260,580 Q290,545 300,560 L300,600Z" fill="#F5C842" opacity="0.6"/>
+      </svg>
+      <div class="gallery-overlay">
+        <div class="gallery-overlay-text">Botanical Feature Wall — Leederville Café</div>
+      </div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="300" height="300" fill="#FDF0E4"/>
+        <rect x="0" y="220" width="300" height="80" fill="#F5C842" opacity="0.3"/>
+        <!-- Abstract wave mural -->
+        <path d="M0,120 Q75,60 150,120 Q225,180 300,120 L300,200 Q225,140 150,200 Q75,260 0,200Z" fill="#E8456A" opacity="0.8"/>
+        <path d="M0,150 Q75,90 150,150 Q225,210 300,150 L300,220 Q225,160 150,220 Q75,280 0,220Z" fill="#F4724A" opacity="0.6"/>
+        <path d="M0,80 Q75,40 150,80 Q225,120 300,80 L300,130 Q225,90 150,130 Q75,170 0,130Z" fill="#C97ED4" opacity="0.6"/>
+        <!-- Sun / circle -->
+        <circle cx="150" cy="80" r="40" fill="#F5C842"/>
+        <circle cx="150" cy="80" r="28" fill="#F4724A"/>
+        <!-- Sparkles -->
+        <circle cx="50" cy="40" r="8" fill="#F5C842"/>
+        <circle cx="250" cy="50" r="6" fill="#2ABFAA"/>
+        <circle cx="200" cy="260" r="10" fill="#E8456A" opacity="0.6"/>
+        <text x="150" y="290" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#3A2E28" opacity="0.6" font-style="italic">Perth CBD Office</text>
+      </svg>
+      <div class="gallery-overlay">
+        <div class="gallery-overlay-text">Wave Series — CBD Office</div>
+      </div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="300" height="300" fill="#1C1A3A"/>
+        <!-- Geometric botanical -->
+        <polygon points="150,20 280,250 20,250" fill="none" stroke="#F5C842" stroke-width="2" opacity="0.3"/>
+        <polygon points="150,60 250,230 50,230" fill="none" stroke="#2ABFAA" stroke-width="2" opacity="0.3"/>
+        <!-- Flowers at geometric points -->
+        <circle cx="150" cy="50" r="20" fill="#E8456A"/>
+        <circle cx="150" cy="50" r="11" fill="#F5C842"/>
+        <circle cx="258" cy="238" r="18" fill="#2ABFAA"/>
+        <circle cx="258" cy="238" r="10" fill="#F5C842"/>
+        <circle cx="42" cy="238" r="18" fill="#C97ED4"/>
+        <circle cx="42" cy="238" r="10" fill="#F5C842"/>
+        <!-- Leaves growing up -->
+        <path d="M150,280 Q130,230 150,180 Q170,230 150,280Z" fill="#3D7A5A"/>
+        <path d="M130,260 Q100,230 110,190 Q130,220 130,260Z" fill="#2ABFAA" opacity="0.75"/>
+        <path d="M170,260 Q200,230 190,190 Q170,220 170,260Z" fill="#2ABFAA" opacity="0.75"/>
+        <!-- Stars/dots -->
+        <circle cx="80" cy="80" r="4" fill="#F5C842"/>
+        <circle cx="220" cy="100" r="5" fill="#F4724A"/>
+        <circle cx="60" cy="160" r="3" fill="#C97ED4"/>
+        <circle cx="240" cy="170" r="4" fill="#2ABFAA"/>
+      </svg>
+      <div class="gallery-overlay">
+        <div class="gallery-overlay-text">Geometric Bloom — Yoga Studio</div>
+      </div>
+    </div>
+
+    <!-- Item 4 -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="300" height="300" fill="#E8F5F2"/>
+        <!-- Jungle scene -->
+        <rect x="0" y="220" width="300" height="80" fill="#2ABFAA" opacity="0.2"/>
+        <path d="M0,300 Q0,200 40,150 Q60,210 55,280Z" fill="#3D7A5A"/>
+        <path d="M55,140 Q75,90 110,100 Q105,160 75,200Z" fill="#2ABFAA"/>
+        <path d="M250,300 Q255,200 280,140 Q300,200 300,300Z" fill="#3D7A5A"/>
+        <path d="M220,150 Q245,90 270,110 Q255,175 235,210Z" fill="#2ABFAA"/>
+        <!-- Big pink flower -->
+        <circle cx="150" cy="140" r="50" fill="#E8456A" opacity="0.85"/>
+        <circle cx="150" cy="140" r="32" fill="#F5C842"/>
+        <circle cx="150" cy="140" r="18" fill="#F4724A"/>
+        <ellipse cx="150" cy="75" rx="18" ry="38" fill="#E8456A" opacity="0.8"/>
+        <ellipse cx="150" cy="205" rx="18" ry="38" fill="#E8456A" opacity="0.8"/>
+        <ellipse cx="85" cy="140" rx="38" ry="18" fill="#E8456A" opacity="0.8"/>
+        <ellipse cx="215" cy="140" rx="38" ry="18" fill="#E8456A" opacity="0.8"/>
+        <!-- Stem -->
+        <line x1="150" y1="190" x2="150" y2="260" stroke="#3D7A5A" stroke-width="5"/>
+        <!-- Butterflies -->
+        <path d="M60,80 Q70,65 80,80 Q70,88 60,80Z" fill="#C97ED4" opacity="0.8"/>
+        <path d="M80,80 Q90,65 100,80 Q88,88 80,80Z" fill="#C97ED4" opacity="0.8"/>
+        <circle cx="80" cy="80" r="4" fill="#3A1F10"/>
+        <path d="M200,60 Q210,45 220,60 Q210,68 200,60Z" fill="#F5C842" opacity="0.8"/>
+        <path d="M220,60 Q230,45 240,60 Q228,68 220,60Z" fill="#F5C842" opacity="0.8"/>
+        <circle cx="220" cy="60" r="3" fill="#3A1F10"/>
+      </svg>
+      <div class="gallery-overlay">
+        <div class="gallery-overlay-text">Jungle Garden — Fremantle Restaurant</div>
+      </div>
+    </div>
+
+    <!-- Item 5 — wide -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="600" height="300" fill="#2C1A40"/>
+        <!-- Night sky mural -->
+        <ellipse cx="300" cy="400" rx="400" ry="250" fill="#3D2860" opacity="0.6"/>
+        <!-- Moon -->
+        <circle cx="500" cy="80" r="50" fill="#F5C842" opacity="0.9"/>
+        <circle cx="520" cy="65" r="42" fill="#2C1A40"/>
+        <!-- Stars -->
+        <circle cx="50" cy="40" r="3" fill="#fff" opacity="0.9"/>
+        <circle cx="130" cy="60" r="2" fill="#fff" opacity="0.7"/>
+        <circle cx="220" cy="30" r="3" fill="#fff" opacity="0.8"/>
+        <circle cx="310" cy="50" r="2" fill="#fff" opacity="0.6"/>
+        <circle cx="380" cy="25" r="3" fill="#F5C842" opacity="0.9"/>
+        <circle cx="430" cy="55" r="2" fill="#fff" opacity="0.7"/>
+        <circle cx="80" cy="100" r="2" fill="#C97ED4" opacity="0.8"/>
+        <circle cx="170" cy="80" r="2" fill="#fff" opacity="0.6"/>
+        <circle cx="260" cy="90" r="3" fill="#2ABFAA" opacity="0.8"/>
+        <!-- Aurora waves -->
+        <path d="M0,160 Q150,100 300,140 Q450,180 600,130 L600,200 Q450,250 300,210 Q150,170 0,230Z" fill="#2ABFAA" opacity="0.2"/>
+        <path d="M0,180 Q150,120 300,160 Q450,200 600,150 L600,210 Q450,260 300,220 Q150,180 0,240Z" fill="#C97ED4" opacity="0.15"/>
+        <!-- Silhouette skyline -->
+        <rect x="0" y="240" width="600" height="60" fill="#1A0D28"/>
+        <rect x="60" y="200" width="40" height="40" fill="#1A0D28"/>
+        <rect x="80" y="185" width="10" height="15" fill="#1A0D28"/>
+        <rect x="160" y="210" width="55" height="30" fill="#1A0D28"/>
+        <rect x="175" y="195" width="25" height="15" fill="#1A0D28"/>
+        <rect x="310" y="200" width="35" height="40" fill="#1A0D28"/>
+        <rect x="395" y="215" width="50" height="25" fill="#1A0D28"/>
+        <rect x="450" y="195" width="30" height="45" fill="#1A0D28"/>
+        <rect x="530" y="205" width="45" height="35" fill="#1A0D28"/>
+        <!-- Foreground flowers glowing -->
+        <circle cx="100" cy="260" r="18" fill="#E8456A" opacity="0.7"/>
+        <circle cx="100" cy="260" r="10" fill="#F5C842" opacity="0.9"/>
+        <circle cx="270" cy="255" r="14" fill="#C97ED4" opacity="0.8"/>
+        <circle cx="270" cy="255" r="8" fill="#F5C842" opacity="0.9"/>
+        <circle cx="490" cy="258" r="16" fill="#2ABFAA" opacity="0.7"/>
+        <circle cx="490" cy="258" r="9" fill="#F5C842" opacity="0.9"/>
+      </svg>
+      <div class="gallery-overlay">
+        <div class="gallery-overlay-text">Midnight Garden — Northbridge Bar</div>
+      </div>
+    </div>
+
+    <!-- Item 6 -->
+    <div class="gallery-item">
+      <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="300" height="300" fill="#FFF8E6"/>
+        <!-- Colourful abstract faces / characters -->
+        <circle cx="100" cy="120" r="60" fill="#F5C842"/>
+        <circle cx="85" cy="108" r="10" fill="#1C1410"/>
+        <circle cx="115" cy="108" r="10" fill="#1C1410"/>
+        <circle cx="88" cy="105" r="4" fill="#fff"/>
+        <circle cx="118" cy="105" r="4" fill="#fff"/>
+        <!-- Smile -->
+        <path d="M75,135 Q100,160 125,135" stroke="#1C1410" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <!-- Hair / petals -->
+        <ellipse cx="100" cy="55" rx="12" ry="22" fill="#E8456A"/>
+        <ellipse cx="60" cy="70" rx="12" ry="22" fill="#E8456A" transform="rotate(-30 60 70)"/>
+        <ellipse cx="140" cy="70" rx="12" ry="22" fill="#E8456A" transform="rotate(30 140 70)"/>
+        <ellipse cx="45" cy="100" rx="12" ry="22" fill="#F4724A" transform="rotate(-60 45 100)"/>
+        <ellipse cx="155" cy="100" rx="12" ry="22" fill="#F4724A" transform="rotate(60 155 100)"/>
+        <!-- Second face smaller -->
+        <circle cx="210" cy="200" r="45" fill="#2ABFAA"/>
+        <circle cx="197" cy="190" r="8" fill="#1C1410"/>
+        <circle cx="223" cy="190" r="8" fill="#1C1410"/>
+        <circle cx="200" cy="187" r="3" fill="#fff"/>
+        <circle cx="226" cy="187" r="3" fill="#fff"/>
+        <path d="M195,210 Q210,228 225,210" stroke="#1C1410" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="210" cy="148" rx="10" ry="19" fill="#C97ED4"/>
+        <ellipse cx="178" cy="162" rx="10" ry="19" fill="#C97ED4" transform="rotate(-35 178 162)"/>
+        <ellipse cx="242" cy="162" rx="10" ry="19" fill="#C97ED4" transform="rotate(35 242 162)"/>
+        <!-- Dots scattered -->
+        <circle cx="30" cy="30" r="8" fill="#E8456A"/>
+        <circle cx="270" cy="40" r="6" fill="#F5C842"/>
+        <circle cx="50" cy="260" r="7" fill="#2ABFAA"/>
+        <circle cx="270" cy="280" r="9" fill="#C97ED4"/>
+        <circle cx="160" cy="30" r="5" fill="#3D4FBF"/>
+      </svg>
+      <div class="gallery-overlay">
+        <div class="gallery-overlay-text">Joyful Faces — Children's Clinic</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section" id="process">
+  <div class="section-label">How it works</div>
+  <h2>From blank wall to masterpiece</h2>
+  <div class="process-steps">
+
+    <div class="process-step reveal">
+      <div class="step-icon" style="background:#FEE8ED; color:#E8456A;">💬</div>
+      <h3>1. Free Consultation</h3>
+      <p>We chat about your vision, the space, your brand, and your budget. No obligation, just ideas.</p>
+    </div>
+
+    <div class="process-step reveal">
+      <div class="step-icon" style="background:#FFF8D6; color:#B8920A;">✏️</div>
+      <h3>2. Design & Concept</h3>
+      <p>I create a full design mockup showing exactly how the mural will look on your wall. You give feedback until it's perfect.</p>
+    </div>
+
+    <div class="process-step reveal">
+      <div class="step-icon" style="background:#E1F5EE; color:#0F6E56;">🎨</div>
+      <h3>3. Paint Day(s)</h3>
+      <p>I arrive with everything needed and get to work. Most business murals are completed in 1–3 days with minimal disruption.</p>
+    </div>
+
+    <div class="process-step reveal">
+      <div class="step-icon" style="background:#EDE8FE; color:#534AB7;">✨</div>
+      <h3>4. Reveal & Touch-ups</h3>
+      <p>Stand back and admire your wall. I do any final touches and you get photos to share with the world.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="testimonials">
+  <div class="section-label">Kind words</div>
+  <h2>What Perth businesses say</h2>
+  <div class="testimonials-track">
+
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">Dani transformed our café wall into something magical. Every single customer comments on it. We've had people come in just to take photos — it's basically free marketing!</p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:#E8456A;">SM</div>
+        <div>
+          <div class="author-name">Sophie M.</div>
+          <div class="author-business">Little Grounds Café, Leederville</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">We wanted our office to feel less corporate and more human. Dani nailed the brief perfectly — the mural is vibrant, on-brand, and our team absolutely loves it.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:#3D4FBF;">JT</div>
+        <div>
+          <div class="author-name">James T.</div>
+          <div class="author-business">TechStart Perth, CBD</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">The whole process was seamless. From the initial design through to the final reveal, Dani was professional, creative, and an absolute delight to work with.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar" style="background:#2ABFAA;">AL</div>
+        <div>
+          <div class="author-name">Anika L.</div>
+          <div class="author-business">Flow Yoga Studio, Fremantle</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-bg"></div>
+  <div class="contact-content">
+    <div class="contact-left reveal">
+      <div class="section-label">Get in touch</div>
+      <h2>Let's paint something beautiful</h2>
+      <p>Ready to transform your space? Fill in the form and I'll get back to you within 24 hours with ideas, pricing, and next steps.</p>
+
+      <div class="contact-info-items">
+        <div class="contact-info-item">
+          <div class="contact-info-icon" style="background:rgba(232,69,106,0.15);">📍</div>
+          <span>Perth, Western Australia — servicing all metro areas & surrounds</span>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon" style="background:rgba(42,191,170,0.15);">📸</div>
+          <a href="https://www.instagram.com/roseangel.art/" target="_blank" style="color:var(--teal); text-decoration:none;">@roseangel.art on Instagram</a>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon" style="background:rgba(245,200,66,0.15);">🕐</div>
+          <span>Responding within 24 hours, Mon–Fri</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form reveal" id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your name</label>
+          <input type="text" id="fname" placeholder="First name">
+        </div>
+        <div class="form-group">
+          <label>Business name</label>
+          <input type="text" id="bname" placeholder="Your business">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" id="email" placeholder="you@example.com">
+      </div>
+      <div class="form-group">
+        <label>Type of space</label>
+        <select id="spaceType">
+          <option value="" disabled selected>Select your space...</option>
+          <option>Café or Restaurant</option>
+          <option>Office or Co-working</option>
+          <option>Retail Store</option>
+          <option>Gym or Studio</option>
+          <option>School or Community Space</option>
+          <option>Hotel or Hospitality</option>
+          <option>Medical or Clinic</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tell me about your vision</label>
+        <textarea id="vision" placeholder="What do you have in mind? Size of wall, colours, style, any references... don't hold back!"></textarea>
+      </div>
+      <button class="form-submit" onclick="submitForm()">Send my enquiry 🎨</button>
+
+      <div class="form-success" id="formSuccess">
+        <p style="font-size:2rem; margin-bottom:0.5rem;">🌸</p>
+        <p>Thank you! I'll be in touch soon.</p>
+        <p style="font-size:0.85rem; color:rgba(255,255,255,0.5); font-family:'DM Sans',sans-serif; margin-top:0.5rem;">Check your inbox within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="#">Rose<span>Angel</span>.art</a>
+  <p class="footer-copy">© 2025 Rose Angel Art — Perth, Western Australia. Hand-painted murals with love.</p>
+  <div class="social-links">
+    <a href="https://www.instagram.com/roseangel.art/" target="_blank" class="social-link" title="Instagram">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+      </svg>
+    </a>
+  </div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  if (cursor) {
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .gallery-item, .service-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+    });
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Form submit
+  function submitForm() {
+    const name = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    if (!name || !email) {
+      alert('Please enter your name and email address.');
+      return;
+    }
+    document.getElementById('contactForm').querySelector('.form-submit').style.display = 'none';
+    document.querySelectorAll('#contactForm .form-group, #contactForm .form-row').forEach(el => {
+      el.style.opacity = '0.3';
+      el.style.pointerEvents = 'none';
+    });
+    document.getElementById('formSuccess').style.display = 'block';
+  }
+
+  // Smooth anchor scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
